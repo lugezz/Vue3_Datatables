@@ -5,7 +5,6 @@
       class="display cell-border"
       width="100%"
       :options="options"
-      @change="addButtEvList"
     />
 </template>
 
@@ -25,7 +24,14 @@ export default {
         responsive: true,
         autoWidth: false,
         destroy: true,
-        deferRender: true
+        deferRender: true,
+        initComplete: function () {
+        this.on('page.dt', function () {
+          nextTick(() => {
+            addButtEvList();
+          });
+        });
+      },
       },
       columns: [
         { data: 'id', title: 'ID', width: '10%' },
